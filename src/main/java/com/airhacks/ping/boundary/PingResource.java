@@ -9,7 +9,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
  *
  * @author airhacks.com
  */
-@Path("ping")
+@Path("/ping")
 public class PingResource {
 
     @Inject
