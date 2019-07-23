@@ -12,17 +12,21 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import pl.fis.data.ResourceNotFound;
 import pl.fis.data.SpaceFleet;
 import pl.fis.data.Spaceship;
 import pl.fis.logic.SpaceFleetHandler;
 
+@Api(value = "Space-fleet endpoint", produces = "Provides funcionality to operate space fleet")
 @Path("/v4/space-fleet")
 public class SpaceshipsV4
 {
 	@Inject
 	private SpaceFleetHandler fleetHandler;
 
+	@ApiOperation(value="Retrive available ships", notes= "Returns Json format")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public SpaceFleet getSpaceFleet()
@@ -30,6 +34,7 @@ public class SpaceshipsV4
 		return fleetHandler.getSpaceFleet();
 	}
 
+	@ApiOperation(value="Add ship to the fleet", notes= "Accepts Json format")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void addSpaceship(@Valid Spaceship spaceship)
@@ -37,6 +42,7 @@ public class SpaceshipsV4
 		fleetHandler.addSpaceship(spaceship);
 	}
 
+	@ApiOperation(value="Retrive information about specific ship", notes= "Returns Json format")
 	@Path("/{spaceshipName}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
