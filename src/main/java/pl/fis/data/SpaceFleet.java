@@ -4,13 +4,16 @@ import java.util.List;
 
 import javax.json.bind.annotation.JsonbProperty;
 
-
 public class SpaceFleet
 {
 	private String name;
-	
+
 	@JsonbProperty("ships")
-	private List<Spaceship> spacefleet;
+	private List<Spaceship> spaceFleetShips;
+
+	public SpaceFleet()
+	{
+	};
 
 	public String getName()
 	{
@@ -22,13 +25,13 @@ public class SpaceFleet
 		this.name = name;
 	}
 
-	public List<Spaceship> getSpacefleet()
+	public List<Spaceship> getSpaceFleetShips()
 	{
-		return spacefleet;
+		return spaceFleetShips;
 	}
 
-	public void setSpacefleet(List<Spaceship> spacefleet)
+	public void setSpaceFleetShips(List<Spaceship> spacefleet)
 	{
-		this.spacefleet = spacefleet;
+		this.spaceFleetShips = spacefleet;
 	}
 }

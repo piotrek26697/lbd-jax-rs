@@ -1,6 +1,9 @@
 package pl.fis.endpoints;
 
+import java.time.LocalDate;
+
 import javax.inject.Inject;
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -9,12 +12,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import pl.fis.data.ResourceNotFound;
 import pl.fis.data.SpaceFleet;
 import pl.fis.data.Spaceship;
 import pl.fis.logic.SpaceFleetHandler;
 
-@Path("/v3/space-fleet")
-public class SpaceshipsV3
+@Path("/v4/space-fleet")
+public class SpaceshipsV4
 {
 	@Inject
 	private SpaceFleetHandler fleetHandler;
@@ -28,7 +32,7 @@ public class SpaceshipsV3
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void addSpaceship(Spaceship spaceship)
+	public void addSpaceship(@Valid Spaceship spaceship)
 	{
 		fleetHandler.addSpaceship(spaceship);
 	}
@@ -38,6 +42,10 @@ public class SpaceshipsV3
 	@Produces(MediaType.APPLICATION_JSON)
 	public Spaceship getSpaceshipDetails(@PathParam("spaceshipName") String name)
 	{
-		return fleetHandler.getSpaceship(name);
+		Spaceship ship = fleetHandler.getSpaceship(name);
+		if (ship == null)
+			throw new ResourceNotFound(name);
+		else
+			return ship;
 	}
 }
