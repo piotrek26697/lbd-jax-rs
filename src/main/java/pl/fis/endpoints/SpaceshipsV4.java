@@ -49,4 +49,3 @@ public class SpaceshipsV4
 			return ship;
 	}
 }
-//testing
