@@ -20,6 +20,9 @@ public class JAXRSConfiguration extends Application
 	{
 		Set<Class<?>> classes = new HashSet<>();
 		classes.add(pl.fis.endpoints.SpaceshipsV4.class);
+		classes.add(pl.fis.endpoints.SpaceshipsV2.class);
+		classes.add(pl.fis.endpoints.SpaceshipsV1.class);
+		classes.add(pl.fis.endpoints.SpaceshipsV3.class);
 		classes.add(pl.fis.logic.ConstraintViolationMapper.class);
 		classes.add(pl.fis.logic.SpaceFleetHandler.class);
 		classes.add(pl.fis.logic.EntityNotFoundMapper.class);
