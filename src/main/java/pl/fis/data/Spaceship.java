@@ -14,10 +14,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import io.swagger.annotations.ApiModel;
 import pl.fis.serializers.LocalDateDeserializer;
 import pl.fis.serializers.LocalDateSerializer;
 
-
+@ApiModel
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Spaceship

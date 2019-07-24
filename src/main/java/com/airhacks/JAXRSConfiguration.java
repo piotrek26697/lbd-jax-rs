@@ -20,6 +20,15 @@ public class JAXRSConfiguration extends Application
 	{
 		Set<Class<?>> classes = new HashSet<>();
 		classes.add(pl.fis.endpoints.SpaceshipsV4.class);
+		classes.add(pl.fis.logic.ConstraintViolationMapper.class);
+		classes.add(pl.fis.logic.SpaceFleetHandler.class);
+		classes.add(pl.fis.logic.EntityNotFoundMapper.class);
+		classes.add(pl.fis.serializers.LocalDateSerializer.class);
+		classes.add(pl.fis.serializers.LocalDateDeserializer.class);
+		classes.add(pl.fis.data.DataBase.class);
+		classes.add(pl.fis.data.ResourceNotFound.class);
+		classes.add(pl.fis.data.SpaceFleet.class);
+		classes.add(pl.fis.data.Spaceship.class);
 		classes.add(com.github.phillipkruger.apiee.ApieeService.class);
 		return classes;
 	}
