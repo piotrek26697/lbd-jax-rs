@@ -17,9 +17,9 @@ public class DataBase
 	public DataBase()
 	{
 		shipList = new ArrayList<>();
-		shipList.add(new Spaceship("Elysium"));
-		shipList.add(new Spaceship("Battlestar Galactica"));
-		shipList.add(new Spaceship("Reapers"));
+		shipList.add(new Spaceship("Elysium", 5, "1999-01-05"));
+		shipList.add(new Spaceship("Battlestar Galactica", 10, "2008-06-24"));
+		shipList.add(new Spaceship("Reapers", 2, "1993-11-03"));
 		
 		fleet = new SpaceFleet();
 		fleet.setName("FIS fleet");

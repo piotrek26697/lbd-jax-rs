@@ -10,11 +10,13 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import io.swagger.annotations.ApiModel;
+import pl.fis.serializers.LocalDateAdapter;
 import pl.fis.serializers.LocalDateDeserializer;
 import pl.fis.serializers.LocalDateSerializer;
 
@@ -32,6 +34,7 @@ public class Spaceship
 	private double speed;
 
 	@XmlElement(name = "year-of-manufacturing")
+	//@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	@JsonbProperty("year-of-manufacturing")
 	@JsonDeserialize(using = LocalDateDeserializer.class)
 	@JsonSerialize(using = LocalDateSerializer.class)
