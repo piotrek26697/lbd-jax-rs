@@ -9,7 +9,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,9 +33,13 @@ public class SpaceshipsV4
 	@ApiOperation(value = "Retrive available ships", notes = "Returns Json format")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public SpaceFleet getSpaceFleet()
+	public Response getSpaceFleet()
 	{
-		return fleetHandler.getSpaceFleet();
+		CacheControl cc = new CacheControl();
+		cc.setMaxAge(60); //1 minute
+		cc.setPrivate(true);
+		
+		return Response.ok(fleetHandler.getSpaceFleet()).cacheControl(cc).build();
 	}
 
 	@ApiOperation(value = "Add ship to the fleet", notes = "Accepts Json format")
@@ -54,12 +60,17 @@ public class SpaceshipsV4
 	@Path("/{spaceshipName}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Spaceship getSpaceshipDetails(@ApiParam(value = "spaceship name") @PathParam("spaceshipName") String name)
+	public Response getSpaceshipDetails(@ApiParam(value = "spaceship name") @PathParam("spaceshipName") String name)
 	{
 		Spaceship ship = fleetHandler.getSpaceship(name);
 		if (ship == null)
 			throw new ResourceNotFound(name);
 		else
-			return ship;
+		{
+			CacheControl cc = new CacheControl();
+			cc.setMaxAge(60); //1 minute
+			cc.setPrivate(true);
+			return Response.ok(ship).cacheControl(cc).build();
+		}
 	}
 }
