@@ -1,5 +1,7 @@
 package pl.fis.endpoints;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
@@ -9,6 +11,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -19,8 +22,8 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import pl.fis.data.ResourceNotFound;
-import pl.fis.data.SpaceFleet;
 import pl.fis.data.Spaceship;
+import pl.fis.logic.ListSorter;
 import pl.fis.logic.SpaceFleetHandler;
 
 @Api(value = "Space-fleet endpoint. Provides funcionality to operate space fleet")
@@ -73,43 +76,13 @@ public class SpaceshipsV4
 		}
 	}
 
-//	@Path("/ships")
-//	@GET
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public List<Spaceship> getOrderedSpaceships(@QueryParam("order") String order, @QueryParam("by") String element)
-//	{
-//		List<Spaceship> shipList = fleetHandler.getSpaceFleet().getSpaceFleetShips();
-///////////////////////////////////////
-//		switch (order.toUpperCase())
-//		{
-//		case "DESC":
-//			if ("speed".equalsIgnoreCase(element))
-//			{
-//				Collections.sort(shipList, (s1, s2) -> {
-//					return Double.compare(s1.getSpeed(), s2.getSpeed());
-//				});
-//				Collections.reverse(shipList);
-//			} else
-//			{
-//				Collections.sort(shipList, (s1, s2) -> {
-//					return s1.getName().compareTo(s2.getName());
-//				});
-//				Collections.reverse(shipList);
-//			}
-//		default:
-//			if ("speed".equalsIgnoreCase(element))
-//			{
-//				Collections.sort(shipList, (s1, s2) -> {
-//					return Double.compare(s1.getSpeed(), s2.getSpeed());
-//				});
-//			} else
-//			{
-//				Collections.sort(shipList, (s1, s2) -> {
-//					return s1.getName().compareTo(s2.getName());
-//				});
-//			}
-//		}
-//////////////////////////////////
-//		return null;
-//	}
+	@Path("/ships")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Spaceship> getOrderedSpaceships(@QueryParam("order") String order, @QueryParam("by") String element)
+	{
+		List<Spaceship> shipList = fleetHandler.getSpaceFleet().getSpaceFleetShips();
+
+		return ListSorter.sort(order, element, shipList);
+	}
 }

@@ -26,13 +26,16 @@ public class JAXRSConfiguration extends Application
 		classes.add(pl.fis.logic.ConstraintViolationMapper.class);
 		classes.add(pl.fis.logic.SpaceFleetHandler.class);
 		classes.add(pl.fis.logic.EntityNotFoundMapper.class);
+		classes.add(pl.fis.logic.UserLanguage.class);
 		classes.add(pl.fis.serializers.LocalDateSerializer.class);
 		classes.add(pl.fis.serializers.LocalDateDeserializer.class);
+		classes.add(pl.fis.serializers.LocalDateAdapter.class);
 		classes.add(pl.fis.data.DataBase.class);
 		classes.add(pl.fis.data.ResourceNotFound.class);
 		classes.add(pl.fis.data.SpaceFleet.class);
 		classes.add(pl.fis.data.Spaceship.class);
 		classes.add(pl.fis.filters.LanguageFilter.class);
+		classes.add(pl.fis.logic.ListSorter.class);
 		classes.add(com.github.phillipkruger.apiee.ApieeService.class);
 		return classes;
 	}

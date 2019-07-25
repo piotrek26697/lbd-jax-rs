@@ -2,14 +2,14 @@ package pl.fis.logic;
 
 import java.util.Iterator;
 
-import javax.enterprise.context.RequestScoped;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import pl.fis.data.DataBase;
 import pl.fis.data.SpaceFleet;
 import pl.fis.data.Spaceship;
 
-@RequestScoped
+@Stateless
 public class SpaceFleetHandler
 {
 	@Inject
