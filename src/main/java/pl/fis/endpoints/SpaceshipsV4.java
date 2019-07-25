@@ -19,7 +19,6 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import pl.fis.data.ResourceNotFound;
-import pl.fis.data.SpaceFleet;
 import pl.fis.data.Spaceship;
 import pl.fis.logic.SpaceFleetHandler;
 
@@ -36,15 +35,14 @@ public class SpaceshipsV4
 	public Response getSpaceFleet()
 	{
 		CacheControl cc = new CacheControl();
-		cc.setMaxAge(60); //1 minute
+		cc.setMaxAge(60); // 1 minute
 		cc.setPrivate(true);
-		
+
 		return Response.ok(fleetHandler.getSpaceFleet()).cacheControl(cc).build();
 	}
 
 	@ApiOperation(value = "Add ship to the fleet", notes = "Accepts Json format")
-	@ApiResponses(value = {
-			@ApiResponse(code = 204, message = "Successfully added ship"),
+	@ApiResponses(value = { @ApiResponse(code = 204, message = "Successfully added ship"),
 			@ApiResponse(code = 400, message = "Spaceship invalid", response = ConstraintViolationException.class) })
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -68,9 +66,49 @@ public class SpaceshipsV4
 		else
 		{
 			CacheControl cc = new CacheControl();
-			cc.setMaxAge(60); //1 minute
+			cc.setMaxAge(60); // 1 minute
 			cc.setPrivate(true);
 			return Response.ok(ship).cacheControl(cc).build();
 		}
 	}
+
+//	@Path("/ships")
+//	@GET
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public List<Spaceship> getOrderedSpaceships(@QueryParam("order") String order, @QueryParam("by") String element)
+//	{
+//		List<Spaceship> shipList = fleetHandler.getSpaceFleet().getSpaceFleetShips();
+///////////////////////////////////////
+//		switch (order.toUpperCase())
+//		{
+//		case "DESC":
+//			if ("speed".equalsIgnoreCase(element))
+//			{
+//				Collections.sort(shipList, (s1, s2) -> {
+//					return Double.compare(s1.getSpeed(), s2.getSpeed());
+//				});
+//				Collections.reverse(shipList);
+//			} else
+//			{
+//				Collections.sort(shipList, (s1, s2) -> {
+//					return s1.getName().compareTo(s2.getName());
+//				});
+//				Collections.reverse(shipList);
+//			}
+//		default:
+//			if ("speed".equalsIgnoreCase(element))
+//			{
+//				Collections.sort(shipList, (s1, s2) -> {
+//					return Double.compare(s1.getSpeed(), s2.getSpeed());
+//				});
+//			} else
+//			{
+//				Collections.sort(shipList, (s1, s2) -> {
+//					return s1.getName().compareTo(s2.getName());
+//				});
+//			}
+//		}
+//////////////////////////////////
+//		return null;
+//	}
 }
