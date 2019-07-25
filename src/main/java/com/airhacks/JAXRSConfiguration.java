@@ -32,6 +32,7 @@ public class JAXRSConfiguration extends Application
 		classes.add(pl.fis.data.ResourceNotFound.class);
 		classes.add(pl.fis.data.SpaceFleet.class);
 		classes.add(pl.fis.data.Spaceship.class);
+		classes.add(pl.fis.filters.LanguageFilter.class);
 		classes.add(com.github.phillipkruger.apiee.ApieeService.class);
 		return classes;
 	}

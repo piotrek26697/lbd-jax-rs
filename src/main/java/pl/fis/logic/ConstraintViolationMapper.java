@@ -1,7 +1,10 @@
 package pl.fis.logic;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.Set;
 
+import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
@@ -15,9 +18,14 @@ import javax.ws.rs.ext.Provider;
 @Provider
 public class ConstraintViolationMapper implements ExceptionMapper<ConstraintViolationException>
 {
+	@Inject
+	private UserLanguage userLanguage;
+	
 	@Override
 	public Response toResponse(ConstraintViolationException exception)
-	{
+	{		
+		ResourceBundle resourceBundle = ResourceBundle.getBundle("LanguageBundle", userLanguage.getLanguage());
+		
 		JsonArrayBuilder errorsList = Json.createArrayBuilder();
 
 		Set<ConstraintViolation<?>> violations = exception.getConstraintViolations();
@@ -27,14 +35,14 @@ public class ConstraintViolationMapper implements ExceptionMapper<ConstraintViol
 					.substring(violation.getPropertyPath().toString().lastIndexOf('.') + 1);
 			
 			JsonObject error = Json.createObjectBuilder()
-					.add(fieldName, violation.getMessage())
+					.add(resourceBundle.getString(fieldName), resourceBundle.getString(fieldName+"Message"))
 					.build();
 			
 			errorsList.add(error);
 		}
 		String message = Json.createObjectBuilder()
-				.add("status", Response.Status.BAD_REQUEST.toString())
-				.add("field-errors", errorsList.build())
+				.add(resourceBundle.getString("status"), Response.Status.BAD_REQUEST.toString())
+				.add(resourceBundle.getString("errors"), errorsList.build())
 				.build()
 				.toString();
 
