@@ -19,6 +19,7 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import pl.fis.data.ResourceNotFound;
+import pl.fis.data.SpaceFleet;
 import pl.fis.data.Spaceship;
 import pl.fis.logic.SpaceFleetHandler;
 

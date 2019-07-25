@@ -19,7 +19,7 @@ public class LanguageFilter implements ContainerRequestFilter
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException
 	{
-		
+		Locale.setDefault(new Locale("en"));
 		if (requestContext.getAcceptableLanguages() != null && requestContext.getAcceptableLanguages().size() > 0)
 			userLanguage.setLanguage(requestContext.getAcceptableLanguages().get(0));
 		else
