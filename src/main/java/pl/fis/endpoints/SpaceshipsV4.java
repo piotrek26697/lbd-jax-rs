@@ -1,6 +1,7 @@
 package pl.fis.endpoints;
 
 import javax.inject.Inject;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -36,6 +37,9 @@ public class SpaceshipsV4
 	}
 
 	@ApiOperation(value = "Add ship to the fleet", notes = "Accepts Json format")
+	@ApiResponses(value = {
+			@ApiResponse(code = 204, message = "Successfully added ship"),
+			@ApiResponse(code = 400, message = "Spaceship invalid", response = ConstraintViolationException.class) })
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void addSpaceship(@Valid Spaceship spaceship)
