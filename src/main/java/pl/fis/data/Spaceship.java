@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import io.swagger.annotations.ApiModel;
+import pl.fis.logic.serializers.LinkSerializer;
 import pl.fis.logic.serializers.LocalDateDeserializer;
 import pl.fis.logic.serializers.LocalDateSerializer;
 
@@ -40,6 +41,7 @@ public class Spaceship
 	@PastOrPresent
 	private LocalDate dayOfManufacture;
 	
+	@JsonSerialize(using=LinkSerializer.class)
 	private Link selfLink;
 
 	public Spaceship()
