@@ -1,4 +1,4 @@
-package pl.fis.serializers;
+package pl.fis.logic.serializers;
 
 import java.io.IOException;
 import java.time.LocalDate;

@@ -1,4 +1,4 @@
-package pl.fis.logic;
+package pl.fis.logic.errors.handlers;
 
 import javax.json.Json;
 import javax.ws.rs.core.MediaType;
@@ -6,7 +6,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import pl.fis.data.ResourceNotFound;
+import pl.fis.logic.errors.ResourceNotFound;
 
 @Provider
 public class EntityNotFoundMapper implements ExceptionMapper<ResourceNotFound>

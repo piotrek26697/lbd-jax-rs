@@ -1,4 +1,4 @@
-package pl.fis.data;
+package pl.fis.logic.errors;
 
 public class ResourceNotFound extends RuntimeException
 {

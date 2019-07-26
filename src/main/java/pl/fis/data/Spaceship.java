@@ -6,6 +6,7 @@ import javax.json.bind.annotation.JsonbProperty;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Positive;
+import javax.ws.rs.core.Link;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -15,8 +16,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import io.swagger.annotations.ApiModel;
-import pl.fis.serializers.LocalDateDeserializer;
-import pl.fis.serializers.LocalDateSerializer;
+import pl.fis.logic.serializers.LocalDateDeserializer;
+import pl.fis.logic.serializers.LocalDateSerializer;
 
 @ApiModel
 @XmlRootElement
@@ -38,10 +39,22 @@ public class Spaceship
 	@JsonSerialize(using = LocalDateSerializer.class)
 	@PastOrPresent
 	private LocalDate dayOfManufacture;
+	
+	private Link detailsLink;
 
 	public Spaceship()
 	{
 	};
+
+	public Link getDetailsLink()
+	{
+		return detailsLink;
+	}
+
+	public void setDetailsLink(Link detailsLink)
+	{
+		this.detailsLink = detailsLink;
+	}
 
 	public Spaceship(String name)
 	{

@@ -13,18 +13,22 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.CacheControl;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Link;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
+import javax.ws.rs.core.UriInfo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import pl.fis.data.ResourceNotFound;
 import pl.fis.data.Spaceship;
 import pl.fis.logic.ListSorter;
 import pl.fis.logic.SpaceFleetHandler;
+import pl.fis.logic.errors.ResourceNotFound;
 
 @Api(value = "Space-fleet endpoint. Provides funcionality to operate space fleet")
 @Path("/v4/space-fleet")
@@ -79,9 +83,16 @@ public class SpaceshipsV4
 	@Path("/ships")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Spaceship> getOrderedSpaceships(@QueryParam("order") String order, @QueryParam("by") String element)
+	public List<Spaceship> getOrderedSpaceships(@QueryParam("order") String order, @QueryParam("by") String element, @Context UriInfo uriInfo)
 	{
 		List<Spaceship> shipList = fleetHandler.getSpaceFleet().getSpaceFleetShips();
+		
+		for(Spaceship ship : shipList)
+		{
+			UriBuilder uriBuilder = UriBuilder.fromUri(uriInfo.getBaseUri()).path("/v4/space-fleet/"+ship.getName());
+			Link detailsLink = Link.fromUriBuilder(uriBuilder).rel("self").type("GET").build();
+			ship.setDetailsLink(detailsLink);
+		}
 
 		return ListSorter.sort(order, element, shipList);
 	}

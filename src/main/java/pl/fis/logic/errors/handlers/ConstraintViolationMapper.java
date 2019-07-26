@@ -1,4 +1,4 @@
-package pl.fis.logic;
+package pl.fis.logic.errors.handlers;
 
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -13,6 +13,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
+
+import pl.fis.logic.UserLanguage;
 
 @Provider
 public class ConstraintViolationMapper implements ExceptionMapper<ConstraintViolationException>
