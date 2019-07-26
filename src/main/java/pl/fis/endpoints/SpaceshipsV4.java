@@ -80,6 +80,9 @@ public class SpaceshipsV4
 		}
 	}
 
+	@ApiOperation(value = "Retrive information about ships in sorted manner", notes = "Returns Json format")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Successfully retrived ship list", response = Spaceship.class)})
 	@Path("/ships")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
