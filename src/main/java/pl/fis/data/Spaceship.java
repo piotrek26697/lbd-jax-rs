@@ -40,20 +40,20 @@ public class Spaceship
 	@PastOrPresent
 	private LocalDate dayOfManufacture;
 	
-	private Link detailsLink;
+	private Link selfLink;
 
 	public Spaceship()
 	{
 	};
 
-	public Link getDetailsLink()
+	public Link getselfLink()
 	{
-		return detailsLink;
+		return selfLink;
 	}
 
-	public void setDetailsLink(Link detailsLink)
+	public void setSelfLink(Link detailsLink)
 	{
-		this.detailsLink = detailsLink;
+		this.selfLink = detailsLink;
 	}
 
 	public Spaceship(String name)

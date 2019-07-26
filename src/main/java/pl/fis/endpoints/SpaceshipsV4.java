@@ -93,9 +93,10 @@ public class SpaceshipsV4
 		
 		for(Spaceship ship : shipList)
 		{
-			UriBuilder uriBuilder = UriBuilder.fromUri(uriInfo.getBaseUri()).path("/v4/space-fleet/"+ship.getName());
+			UriBuilder uriBuilder = UriBuilder.fromUri(uriInfo.getBaseUri()).path(SpaceshipsV4.class);
+			uriBuilder.path(ship.getName());
 			Link detailsLink = Link.fromUriBuilder(uriBuilder).rel("self").type("GET").build();
-			ship.setDetailsLink(detailsLink);
+			ship.setSelfLink(detailsLink);
 		}
 
 		return ListSorter.sort(order, element, shipList);
