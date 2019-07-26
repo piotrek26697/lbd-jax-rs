@@ -50,13 +50,14 @@ public class SpaceshipsV4
 	}
 
 	@ApiOperation(value = "Add ship to the fleet", notes = "Accepts Json format")
-	@ApiResponses(value = { @ApiResponse(code = 204, message = "Successfully added ship"),
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Successfully added ship"),
 			@ApiResponse(code = 400, message = "Spaceship invalid", response = ConstraintViolationException.class) })
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void addSpaceship(@Valid Spaceship spaceship)
+	public Response addSpaceship(@Valid Spaceship spaceship, @Context UriInfo uriInfo)
 	{
 		fleetHandler.addSpaceship(spaceship);
+		return Response.created(UriBuilder.fromUri(uriInfo.getBaseUri()).path("/v4/space-fleet/"+spaceship.getName()).build()).build();
 	}
 
 	@ApiOperation(value = "Retrive information about specific ship", notes = "Returns Json format")
