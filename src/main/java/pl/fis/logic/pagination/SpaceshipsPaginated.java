@@ -22,7 +22,7 @@ public class SpaceshipsPaginated implements Paginated<Page<Spaceship>>
 		if (pageIndex < spaceshipPages.size() && pageIndex >= 0)
 			return spaceshipPages.get(pageIndex);
 		else
-			return new Page<>();
+			return null;
 	}
 
 	@Override

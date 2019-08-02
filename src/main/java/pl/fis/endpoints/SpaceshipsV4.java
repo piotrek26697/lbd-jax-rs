@@ -16,7 +16,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Link;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
@@ -113,6 +112,10 @@ public class SpaceshipsV4
 		spaceshipsPaginated.setupSize(pageSize, order, element);
 		spaceshipsPaginated.setIndex(pageNumber - 1);
 		Page<Spaceship> shipPage = spaceshipsPaginated.getCurrentPage();
+		if (shipPage == null)
+		{
+			return Response.ok().build();
+		}
 
 		for (Spaceship ship : shipPage.getObjects())
 		{
@@ -121,8 +124,8 @@ public class SpaceshipsV4
 			Link detailsLink = Link.fromUriBuilder(uriBuilder).rel("self").type("GET").build();
 			ship.setSelfLink(detailsLink);
 		}
-		Link firstPageLink, lastPageLink;
-		ResponseBuilder response = Response.ok(shipPage);
+		Link firstPageLink = null;
+		Link lastPageLink = null;
 		if (pageNumber > 1)
 		{
 			firstPageLink = Link
@@ -130,7 +133,7 @@ public class SpaceshipsV4
 							.path(SpaceshipsV4.class, "getOrderedSpaceships").queryParam("order", order)
 							.queryParam("by", element).queryParam("page", 1).queryParam("size", size))
 					.rel("first").build();
-			response.links(firstPageLink);
+			shipPage.getLinks().add(firstPageLink);
 		}
 		if (spaceshipsPaginated.getPageCount() > pageNumber)
 		{
@@ -138,8 +141,26 @@ public class SpaceshipsV4
 					.path(SpaceshipsV4.class, "getOrderedSpaceships").queryParam("order", order)
 					.queryParam("by", element).queryParam("page", spaceshipsPaginated.getPageCount())
 					.queryParam("size", size)).rel("last").build();
-			response.links(lastPageLink);
+			shipPage.getLinks().add(lastPageLink);
 		}
-		return response.build();
+		if (firstPageLink != null)
+		{
+			Link previousPageLink = Link
+					.fromUriBuilder(UriBuilder.fromUri(uriInfo.getBaseUri()).path(SpaceshipsV4.class)
+							.path(SpaceshipsV4.class, "getOrderedSpaceships").queryParam("order", order)
+							.queryParam("by", element).queryParam("page", pageNumber - 1).queryParam("size", size))
+					.rel("previous").build();
+			shipPage.getLinks().add(previousPageLink);
+		}
+		if (lastPageLink != null)
+		{
+			Link nextPageLink = Link
+					.fromUriBuilder(UriBuilder.fromUri(uriInfo.getBaseUri()).path(SpaceshipsV4.class)
+							.path(SpaceshipsV4.class, "getOrderedSpaceships").queryParam("order", order)
+							.queryParam("by", element).queryParam("page", pageNumber + 1).queryParam("size", size))
+					.rel("next").build();
+			shipPage.getLinks().add(nextPageLink);
+		}
+		return Response.ok(shipPage).build();
 	}
 }

@@ -52,7 +52,7 @@ public class SpaceFleetHandler
 		while (true)
 		{
 			Page<Spaceship> page = new Page<>();
-			if (i * size > shipList.size())
+			if (i * size >= shipList.size())
 				return resultList;
 			else if (i * size + size > shipList.size())
 			{
